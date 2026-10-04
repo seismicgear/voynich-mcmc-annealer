@@ -8,17 +8,19 @@ with known answers.
 
 ## Install
 
-**Desktop (Linux / Windows / macOS)** — download the build for your OS
-from the repository's GitHub Releases (produced by the `build-installers`
-workflow). The desktop app is an Electron shell around the bundled Python
+**Desktop build targets (Linux / Windows / macOS)** — the `build-installers`
+workflow produces platform candidates. As of October 4, 2026, no published
+GitHub release or retained installer is available. Do not treat the source ZIP
+as an installer; use the source installation below until a verified release
+is published. The desktop app is an Electron shell around the bundled Python
 engine: it opens in its own native window with no browser or Python
 required.
 
 | OS | Artifact |
 |----|----------|
-| Linux | `.AppImage` (desktop app) · `.tar.gz` (headless CLI binary) |
-| macOS | `.dmg` (desktop app) · `-cli.tar.gz` (headless CLI binary) |
-| Windows | `-Setup.exe` (installer with Start-menu/desktop shortcuts) · `-cli.zip` (CLI binary) |
+| Linux | `.AppImage` (desktop app) · `.tar.gz` (headless GUI-server launcher) |
+| macOS | `.dmg` (desktop app) · `-cli.tar.gz` (headless GUI-server launcher) |
+| Windows | `-Setup.exe` (installer with Start-menu/desktop shortcuts) · `-cli.zip` (GUI-server launcher) |
 
 Data downloads on first use into your per-user application data
 directory.
@@ -41,8 +43,10 @@ python -m voynich gui       # open http://127.0.0.1:5000/
 Maintainers: tag a release (`git tag v3.2.0 && git push --tags`) or run the
 `build-installers` workflow manually — on each OS it runs the test suite,
 builds the PyInstaller engine, builds the Electron app around it, boots
-both and verifies the GUI responds (`--smoke`), then attaches the
-artifacts to the release.
+both and verifies the GUI responds (`--smoke`). A manual run uploads CI
+artifacts only; a successful tag-triggered run also attaches them to a release.
+Publishing a tag is a separate release action. A title-only smoke test does not
+prove benchmark, persistence, or install/uninstall acceptance.
 
 ---
 
@@ -199,7 +203,7 @@ python -m voynich solve --language A --reference latin --hypothesis simple \
                         --iterations 60000 --restarts 3
 python -m voynich solve --reference latin --hypothesis abbreviation --abjad
 python -m voynich solve --reference latin --hypothesis anagram --lock-rounds 3
-python -m voynich sweep --language A --hypothesis simple        # all 16 languages, ranked
+python -m voynich sweep --language A --hypothesis simple        # all 28 references, ranked
 python -m voynich benchmark --reference latin --mode anagram
 python -m voynich setup --force
 ```

@@ -6,7 +6,8 @@ from voynich.webapp import create_app
 
 
 @pytest.fixture
-def client(offline_data_dir):
+def client(offline_data_dir, tmp_path, monkeypatch):
+    monkeypatch.setenv("VOYNICH_RESULTS_DIR", str(tmp_path / "results"))
     app = create_app()
     app.config["TESTING"] = True
     return app.test_client()

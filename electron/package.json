@@ -1,7 +1,7 @@
 {
   "name": "voynich-workbench-desktop",
   "version": "3.2.0",
-  "description": "Voynich Decipherment Workbench — desktop shell",
+  "description": "Voynich Decipherment Workbench \u2014 desktop shell",
   "author": "Montgomery Kuykendall",
   "license": "MIT",
   "main": "main.js",
@@ -30,6 +30,14 @@
         "filter": [
           "VoynichWorkbench*"
         ]
+      },
+      {
+        "from": "../LICENSE.md",
+        "to": "LICENSE.md"
+      },
+      {
+        "from": "../DATA-NOTICES.md",
+        "to": "DATA-NOTICES.md"
       }
     ],
     "linux": {

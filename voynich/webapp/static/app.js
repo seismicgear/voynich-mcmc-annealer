@@ -110,7 +110,7 @@ async function refreshRuns() {
     return;
   }
   list.innerHTML = runs
-    .sort((a, b) => b.id - a.id)
+    .sort((a, b) => String(b.started).localeCompare(String(a.started)) || b.id - a.id)
     .map((r) => {
       const p = r.progress || {};
       const pct = p.total_iterations
