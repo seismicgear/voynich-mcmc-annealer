@@ -5,6 +5,8 @@ import os
 from PyInstaller.utils.hooks import collect_data_files
 
 datas = [
+    ("LICENSE.md", "."),
+    ("DATA-NOTICES.md", "."),
     (os.path.join("voynich", "webapp", "templates"),
      os.path.join("voynich", "webapp", "templates")),
     (os.path.join("voynich", "webapp", "static"),

@@ -15,8 +15,8 @@ python -m voynich setup
 ```
 
 Downloads into `data/` (~35 MB total): the word-level Voynich transcription
-(folio/section/Currier/line metadata) and 16 cleaned reference corpora
-spanning Italic, Romance, Germanic, Slavic, Hellenic, Uralic and Basque —
+(folio/section/Currier/line metadata) and 28 cleaned reference corpora
+spanning European, Middle Eastern, African and Asian language families —
 see the table in [README.md](README.md). Greek and Cyrillic sources are
 transliterated one letter per letter during cleaning.
 
@@ -51,7 +51,7 @@ python -m voynich solve --reference latin --hypothesis abbreviation --abjad
 # tokens supported by dictionary-matched words freeze between rounds
 python -m voynich solve --reference latin --hypothesis anagram --lock-rounds 3
 
-# Rank ALL 16 reference languages on one configuration
+# Rank ALL 28 reference languages on one configuration
 python -m voynich sweep --language A --hypothesis simple --iterations 40000
 
 # Known-answer validation (substitution, abbreviation, anagram ciphers)
@@ -105,3 +105,22 @@ must recover ≥95% of a synthetic cipher.
 
 * `experiment/` — v1 mod-23 statistical experiment (unchanged, still tested).
 * `legacy/v2/` — the previous positional-decoder scripts this workbench replaced.
+
+## Storage, backup and packaged launchers
+
+Source and pip runs use `data/` and `results/` relative to the working directory.
+Frozen executables use the per-user `VoynichWorkbench` directory under
+`%APPDATA%` on Windows, `~/Library/Application Support` on macOS, or
+`$XDG_DATA_HOME` (default `~/.local/share`) on Linux. `VOYNICH_DATA_DIR` and
+`VOYNICH_RESULTS_DIR` override these locations. Back up those directories
+before removing an installation; do not automatically delete saved results.
+
+The bundled `VoynichWorkbench` executable launches the local web GUI, with
+`--port`, `--host` and `--no-browser` options. Solver subcommands shown above
+use `python -m voynich`; they are not commands accepted by the frozen launcher.
+Completed, stopped and failed runs are atomically saved in the results directory
+under `.run-history/`, including benchmarks. They appear in Runs after restart.
+Back up this directory along with the standalone solve/sweep/diagnostic reports.
+Older standalone reports are preserved but are not automatically imported into
+the Runs list. Interrupted running jobs are not automatically resumed. Corrupt
+history files are preserved and skipped so healthy results remain available.
